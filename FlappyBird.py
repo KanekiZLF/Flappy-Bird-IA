@@ -170,3 +170,59 @@ class Chao:
     def desenhar(self, tela):
         tela.blit(self.Imagem, (self.x1, self.y))
         tela.blit(self.Imagem, (self.x2, self.y))
+    
+    # Desenha a tela do Jogo    
+def desenharTela(tela, passaros, canos, chao, pontos):
+    tela.blit(ImgFundo, (0, 0))
+    
+    for passaro in passaros:
+        passaro.desenhar(tela)
+    
+    for cano in canos:
+        cano.desenhar(tela)
+        
+    texto = FontePontos.render(f"Pontuação: {pontos}", 1, (255, 255, 255))
+    tela.blit(texto, (TelaAltura - 10 - texto.get_width(), 10))
+    chao.desenhar(tela)
+    pygame.display.update()
+    
+def main():
+    passaros = [Passaro(230, 350)]
+    chao = Chao(730)
+    canos = [Cano(700)]
+    tela = pygame.display.set_mode((TelaLargura, TelaAltura))
+    pontos = 0
+    relogio = pygame.time.Clock()
+    
+    rodando = True
+    while rodando:
+        relogio.tick(30)
+        
+        for evento in  pygame.event.get():
+            # Interação
+            if evento.type == pygame.QUIT:
+                rodando = False
+                pygame.quit()
+                quit()
+            
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_SPACE:
+                    for passaro in passaros:
+                        passaro.pular()
+        
+        # Mover     
+        for passaro in passaros:
+            passaro.mover()
+        chao.mover()
+        
+        adicionar_cano = False
+        for cano in canos:
+            for i, passaro in enumerate(passaros):
+                if cano.colidir(passaro):
+                    passaros.pop(i)
+                if not cano.passou and passaro.x > cano.x:
+                    cano.passou = True
+                    adicionar_cano = True
+        
+        desenharTela(tela, passaros, canos, chao, pontos)
+    
