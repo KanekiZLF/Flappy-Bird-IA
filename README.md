@@ -1,6 +1,6 @@
 ## - 👋 Olá, eu sou o Luiz Fernado !
 - 🎮 <b>Este jogo foi desenvolvido por Hashtag Programação.
-- 💻 Sempre procurando novas soluções.
+- 💻 Aprenda como eu aprendi, tutorial completo <a href="https://www.youtube.com/watch?v=GMDb2jtzKZQ" alt="Jogo Flappy Bird IA">AQUI</a> !.
 - 📱   Apaixonado por Tecnologia.</b><br></br><b>
 - Instruções:
 <br>
